@@ -1,5 +1,6 @@
 package com.chiratsxki.spaceconsole;
 
+import com.chiratsxki.spaceconsole.model.Horizons;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -79,7 +80,14 @@ public class HelloApplication extends Application {
     private void processCommand() {
         String fullText = consoleTextArea.getText().trim();
         String lastCommand = fullText.substring(fullText.lastIndexOf("/sc/>") + 5).trim();
-        String result = CommandProcessor.processCommand(lastCommand);
+        String result;
+
+        if (lastCommand.equals("horizon")) {
+            result = Horizons.processHorizonCommand();
+        } else {
+            result = CommandProcessor.processCommand(lastCommand);
+        }
+
         consoleTextArea.appendText("/sc/> " + result + "\n/sc/> ");
         consoleTextArea.positionCaret(consoleTextArea.getText().length());
     }
